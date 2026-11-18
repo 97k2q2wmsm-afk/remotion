@@ -48,7 +48,7 @@ execFileSync(
 // 2. Words: rescale to new tempo and shift by lead-in.
 const raw = JSON.parse(readFileSync(path.join(root, story.voice.words), 'utf8'));
 const words = raw.words
-	.filter((w) => w.type === 'word')
+	.filter((w) => w.type === 'word' && !/^\[.*\]$/.test(w.text)) // drop audio-direction tags like [excited]
 	.map((w) => ({
 		text: w.text,
 		startMs: Math.round((w.start / tempo + leadInSeconds) * 1000),
@@ -57,7 +57,8 @@ const words = raw.words
 
 const normalize = (s) =>
 	s
-		.toLowerCase()
+		.toLocaleLowerCase('tr')
+		.replace(/ı/g, 'i')
 		.normalize('NFD')
 		.replace(/[̀-ͯ]/g, '')
 		.replace(/[^a-z0-9]/g, '');

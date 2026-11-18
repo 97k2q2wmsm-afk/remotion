@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@motion-canvas/core": "^3.17.2",
     "@remotion/captions": "4.0.545",
     "@remotion/cli": "4.0.545",
     "@remotion/fonts": "4.0.545",
@@ -34,7 +35,12 @@
     "story:timeline": "node scripts/prepare.mjs",
     "story:score": "node scripts/score.mjs",
     "pompeya:build": "node scripts/prepare.mjs pompeya && node scripts/score.mjs pompeya",
-    "pompeya:render": "remotion render Pompeya out/pompeya_ultimo_dia.mp4 --codec=h264 --crf=18 --audio-bitrate=320k"
+    "pompeya:render": "remotion render Pompeya out/pompeya_ultimo_dia.mp4 --codec=h264 --crf=18 --audio-bitrate=320k",
+    "bg:new": "node scripts/bg-new.mjs",
+    "bg:episode": "node scripts/bg-episode.mjs",
+    "bg:score": "node scripts/bg-score.mjs",
+    "bg:master": "node scripts/bg-master.mjs",
+    "yercekimi:render": "node scripts/bg-episode.mjs yercekimi"
   },
   "allowScripts": {
     "esbuild": false

@@ -1,0 +1,800 @@
+{
+	"storyId": "Yercekimi",
+	"fps": 30,
+	"durationInFrames": 1737,
+	"voiceStartFrame": 5,
+	"scenes": [
+		{
+			"id": "hook",
+			"anchor": "Yerçekimi on",
+			"transition": "none",
+			"intensity": 0.7,
+			"chord": [
+				0,
+				3,
+				7
+			],
+			"from": 0,
+			"to": 125
+		},
+		{
+			"id": "sabah",
+			"anchor": "Sıradan bir",
+			"transition": "whip",
+			"intensity": 0.25,
+			"chord": [
+				-4,
+				0,
+				3
+			],
+			"from": 125,
+			"to": 251
+		},
+		{
+			"id": "kapanis",
+			"anchor": "Ve saat",
+			"transition": "flash",
+			"intensity": 0.55,
+			"chord": [
+				-2,
+				2,
+				5
+			],
+			"from": 251,
+			"to": 452
+		},
+		{
+			"id": "zipla",
+			"anchor": "Sen tam",
+			"transition": "zoom",
+			"intensity": 0.8,
+			"chord": [
+				0,
+				3,
+				7
+			],
+			"from": 452,
+			"to": 672
+		},
+		{
+			"id": "dunya",
+			"anchor": "Dünya dönmeye",
+			"transition": "whip",
+			"intensity": 0.6,
+			"chord": [
+				-4,
+				0,
+				3
+			],
+			"from": 672,
+			"to": 930
+		},
+		{
+			"id": "askida",
+			"anchor": "Yedinci saniye",
+			"transition": "fade",
+			"intensity": 0.3,
+			"chord": [
+				-5,
+				-2,
+				2
+			],
+			"from": 930,
+			"to": 1174
+		},
+		{
+			"id": "donus",
+			"anchor": "On Yerçekimi",
+			"transition": "flash",
+			"intensity": 1,
+			"chord": [
+				-2,
+				1,
+				5
+			],
+			"from": 1174,
+			"to": 1309
+		},
+		{
+			"id": "sonuc",
+			"anchor": "Bir metre kalkanlar",
+			"transition": "smoke",
+			"intensity": 0.6,
+			"chord": [
+				-4,
+				-1,
+				3
+			],
+			"from": 1309,
+			"to": 1521
+		},
+		{
+			"id": "final",
+			"anchor": "Sen hâlâ",
+			"transition": "zoom",
+			"intensity": 0.35,
+			"chord": [
+				0,
+				3,
+				10
+			],
+			"from": 1521,
+			"to": 1737
+		}
+	],
+	"hits": [
+		{
+			"id": "off",
+			"word": "kapanır",
+			"kind": "gravity-off",
+			"frame": 330
+		},
+		{
+			"id": "jump",
+			"word": "zıplamıştın",
+			"kind": "whoosh",
+			"frame": 479
+		},
+		{
+			"id": "miss",
+			"word": "kaçırdın",
+			"kind": "miss",
+			"frame": 649
+		},
+		{
+			"id": "tea",
+			"word": "top",
+			"kind": "bloop",
+			"frame": 902
+		},
+		{
+			"id": "eight",
+			"word": "Sekiz",
+			"kind": "tick",
+			"frame": 1071
+		},
+		{
+			"id": "nine",
+			"word": "dokuz",
+			"kind": "tick",
+			"frame": 1100
+		},
+		{
+			"id": "grab",
+			"word": "tutunuyorsun",
+			"kind": "grab",
+			"frame": 1151
+		},
+		{
+			"id": "on",
+			"word": "On Yerçekimi",
+			"kind": "gravity-on",
+			"frame": 1178
+		},
+		{
+			"id": "fall",
+			"word": "düşer",
+			"kind": "crash",
+			"frame": 1291
+		},
+		{
+			"id": "slam",
+			"word": "çakılır",
+			"kind": "crash",
+			"frame": 1433
+		},
+		{
+			"id": "q",
+			"word": "çıksaydı",
+			"kind": "sting",
+			"frame": 1661
+		}
+	],
+	"words": [
+		{
+			"text": "Yerçekimi",
+			"startMs": 224,
+			"endMs": 817
+		},
+		{
+			"text": "on",
+			"startMs": 891,
+			"endMs": 965
+		},
+		{
+			"text": "saniyeliğine",
+			"startMs": 1039,
+			"endMs": 1557
+		},
+		{
+			"text": "kapansaydı…",
+			"startMs": 1631,
+			"endMs": 2409
+		},
+		{
+			"text": "ilk",
+			"startMs": 2594,
+			"endMs": 2817
+		},
+		{
+			"text": "uçan",
+			"startMs": 2891,
+			"endMs": 3039
+		},
+		{
+			"text": "sen",
+			"startMs": 3113,
+			"endMs": 3261
+		},
+		{
+			"text": "olurdun!",
+			"startMs": 3335,
+			"endMs": 3928
+		},
+		{
+			"text": "Sıradan",
+			"startMs": 4283,
+			"endMs": 4594
+		},
+		{
+			"text": "bir",
+			"startMs": 4669,
+			"endMs": 4743
+		},
+		{
+			"text": "İstanbul",
+			"startMs": 4817,
+			"endMs": 5261
+		},
+		{
+			"text": "sabahı.",
+			"startMs": 5298,
+			"endMs": 5891
+		},
+		{
+			"text": "Trafik,",
+			"startMs": 6076,
+			"endMs": 6669
+		},
+		{
+			"text": "simit,",
+			"startMs": 6817,
+			"endMs": 7298
+		},
+		{
+			"text": "sıcak",
+			"startMs": 7409,
+			"endMs": 7631
+		},
+		{
+			"text": "çay.",
+			"startMs": 7706,
+			"endMs": 8150
+		},
+		{
+			"text": "Ve",
+			"startMs": 8499,
+			"endMs": 8520
+		},
+		{
+			"text": "saat",
+			"startMs": 8594,
+			"endMs": 8891
+		},
+		{
+			"text": "sekizi",
+			"startMs": 8965,
+			"endMs": 9261
+		},
+		{
+			"text": "kırk",
+			"startMs": 9335,
+			"endMs": 9483
+		},
+		{
+			"text": "yedi",
+			"startMs": 9557,
+			"endMs": 9631
+		},
+		{
+			"text": "geçe…",
+			"startMs": 9706,
+			"endMs": 10187
+		},
+		{
+			"text": "yerçekimi",
+			"startMs": 10372,
+			"endMs": 10891
+		},
+		{
+			"text": "kapanır.",
+			"startMs": 10990,
+			"endMs": 11557
+		},
+		{
+			"text": "Arabalar,",
+			"startMs": 11780,
+			"endMs": 12446
+		},
+		{
+			"text": "insanlar,",
+			"startMs": 12557,
+			"endMs": 13187
+		},
+		{
+			"text": "eşyalar",
+			"startMs": 13224,
+			"endMs": 13706
+		},
+		{
+			"text": "yavaşça",
+			"startMs": 13780,
+			"endMs": 14298
+		},
+		{
+			"text": "havalanır.",
+			"startMs": 14372,
+			"endMs": 14965
+		},
+		{
+			"text": "Sen",
+			"startMs": 15187,
+			"endMs": 15335
+		},
+		{
+			"text": "tam",
+			"startMs": 15483,
+			"endMs": 15706
+		},
+		{
+			"text": "o",
+			"startMs": 15743,
+			"endMs": 15780
+		},
+		{
+			"text": "an",
+			"startMs": 15854,
+			"endMs": 15928
+		},
+		{
+			"text": "zıplamıştın.",
+			"startMs": 15965,
+			"endMs": 16817
+		},
+		{
+			"text": "Ve",
+			"startMs": 16854,
+			"endMs": 16891
+		},
+		{
+			"text": "durmuyorsun!",
+			"startMs": 16965,
+			"endMs": 17631
+		},
+		{
+			"text": "Saniyede",
+			"startMs": 17928,
+			"endMs": 18372
+		},
+		{
+			"text": "üç",
+			"startMs": 18446,
+			"endMs": 18594
+		},
+		{
+			"text": "metre,",
+			"startMs": 18669,
+			"endMs": 19113
+		},
+		{
+			"text": "dümdüz",
+			"startMs": 19187,
+			"endMs": 19557
+		},
+		{
+			"text": "yukarı.",
+			"startMs": 19606,
+			"endMs": 20002
+		},
+		{
+			"text": "Bir",
+			"startMs": 20298,
+			"endMs": 20372
+		},
+		{
+			"text": "direğe",
+			"startMs": 20483,
+			"endMs": 20669
+		},
+		{
+			"text": "uzanıyorsun…",
+			"startMs": 20743,
+			"endMs": 21335
+		},
+		{
+			"text": "kaçırdın!",
+			"startMs": 21631,
+			"endMs": 22335
+		},
+		{
+			"text": "Dünya",
+			"startMs": 22520,
+			"endMs": 22817
+		},
+		{
+			"text": "dönmeye",
+			"startMs": 22891,
+			"endMs": 23187
+		},
+		{
+			"text": "devam",
+			"startMs": 23261,
+			"endMs": 23483
+		},
+		{
+			"text": "ediyor,",
+			"startMs": 23557,
+			"endMs": 24002
+		},
+		{
+			"text": "ama",
+			"startMs": 24076,
+			"endMs": 24150
+		},
+		{
+			"text": "artık",
+			"startMs": 24224,
+			"endMs": 24520
+		},
+		{
+			"text": "kimse",
+			"startMs": 24594,
+			"endMs": 24891
+		},
+		{
+			"text": "ona",
+			"startMs": 25002,
+			"endMs": 25113
+		},
+		{
+			"text": "bağlı",
+			"startMs": 25187,
+			"endMs": 25409
+		},
+		{
+			"text": "değil.",
+			"startMs": 25446,
+			"endMs": 25780
+		},
+		{
+			"text": "Yerinde",
+			"startMs": 26076,
+			"endMs": 26372
+		},
+		{
+			"text": "duranlar",
+			"startMs": 26446,
+			"endMs": 26817
+		},
+		{
+			"text": "bile",
+			"startMs": 26891,
+			"endMs": 27113
+		},
+		{
+			"text": "bir",
+			"startMs": 27187,
+			"endMs": 27261
+		},
+		{
+			"text": "metre",
+			"startMs": 27335,
+			"endMs": 27631
+		},
+		{
+			"text": "yükseliyor.",
+			"startMs": 27669,
+			"endMs": 28224
+		},
+		{
+			"text": "Çay",
+			"startMs": 28594,
+			"endMs": 28743
+		},
+		{
+			"text": "bardaktan",
+			"startMs": 28817,
+			"endMs": 29261
+		},
+		{
+			"text": "süzülüp",
+			"startMs": 29335,
+			"endMs": 29706
+		},
+		{
+			"text": "havada",
+			"startMs": 29743,
+			"endMs": 30002
+		},
+		{
+			"text": "top",
+			"startMs": 30076,
+			"endMs": 30298
+		},
+		{
+			"text": "oluyor.",
+			"startMs": 30372,
+			"endMs": 30743
+		},
+		{
+			"text": "Yedinci",
+			"startMs": 31113,
+			"endMs": 31483
+		},
+		{
+			"text": "saniye.",
+			"startMs": 31557,
+			"endMs": 32224
+		},
+		{
+			"text": "Yirmi",
+			"startMs": 32446,
+			"endMs": 32669
+		},
+		{
+			"text": "metre",
+			"startMs": 32743,
+			"endMs": 32965
+		},
+		{
+			"text": "yüksektesin.",
+			"startMs": 33039,
+			"endMs": 33706
+		},
+		{
+			"text": "Şehir",
+			"startMs": 34076,
+			"endMs": 34298
+		},
+		{
+			"text": "nefesini",
+			"startMs": 34372,
+			"endMs": 34743
+		},
+		{
+			"text": "tutmuş.",
+			"startMs": 34817,
+			"endMs": 35261
+		},
+		{
+			"text": "Sekiz…",
+			"startMs": 35706,
+			"endMs": 36594
+		},
+		{
+			"text": "dokuz…",
+			"startMs": 36669,
+			"endMs": 37409
+		},
+		{
+			"text": "Son",
+			"startMs": 37483,
+			"endMs": 37631
+		},
+		{
+			"text": "anda",
+			"startMs": 37743,
+			"endMs": 37854
+		},
+		{
+			"text": "bir",
+			"startMs": 37891,
+			"endMs": 37928
+		},
+		{
+			"text": "balkona",
+			"startMs": 38002,
+			"endMs": 38298
+		},
+		{
+			"text": "tutunuyorsun!",
+			"startMs": 38372,
+			"endMs": 38965
+		},
+		{
+			"text": "On!",
+			"startMs": 39261,
+			"endMs": 39631
+		},
+		{
+			"text": "Yerçekimi",
+			"startMs": 39928,
+			"endMs": 40446
+		},
+		{
+			"text": "geri",
+			"startMs": 40520,
+			"endMs": 40669
+		},
+		{
+			"text": "döner.",
+			"startMs": 40706,
+			"endMs": 41039
+		},
+		{
+			"text": "Havadaki",
+			"startMs": 41187,
+			"endMs": 41631
+		},
+		{
+			"text": "her",
+			"startMs": 41706,
+			"endMs": 41854
+		},
+		{
+			"text": "şey…",
+			"startMs": 42002,
+			"endMs": 42446
+		},
+		{
+			"text": "aynı",
+			"startMs": 42557,
+			"endMs": 42743
+		},
+		{
+			"text": "anda",
+			"startMs": 42854,
+			"endMs": 42965
+		},
+		{
+			"text": "düşer!",
+			"startMs": 43039,
+			"endMs": 43483
+		},
+		{
+			"text": "Bir",
+			"startMs": 43765,
+			"endMs": 43854
+		},
+		{
+			"text": "metre",
+			"startMs": 43928,
+			"endMs": 44150
+		},
+		{
+			"text": "kalkanlar",
+			"startMs": 44224,
+			"endMs": 44743
+		},
+		{
+			"text": "sadece",
+			"startMs": 44817,
+			"endMs": 45187
+		},
+		{
+			"text": "sarsılır.",
+			"startMs": 45261,
+			"endMs": 45928
+		},
+		{
+			"text": "Ama",
+			"startMs": 46076,
+			"endMs": 46224
+		},
+		{
+			"text": "yükseğe",
+			"startMs": 46335,
+			"endMs": 46594
+		},
+		{
+			"text": "savrulan",
+			"startMs": 46669,
+			"endMs": 47039
+		},
+		{
+			"text": "arabalar",
+			"startMs": 47076,
+			"endMs": 47483
+		},
+		{
+			"text": "yere",
+			"startMs": 47557,
+			"endMs": 47706
+		},
+		{
+			"text": "çakılır.",
+			"startMs": 47780,
+			"endMs": 48446
+		},
+		{
+			"text": "Şehir",
+			"startMs": 48669,
+			"endMs": 48965
+		},
+		{
+			"text": "tek",
+			"startMs": 49039,
+			"endMs": 49261
+		},
+		{
+			"text": "saniyede",
+			"startMs": 49335,
+			"endMs": 49706
+		},
+		{
+			"text": "altüst",
+			"startMs": 49780,
+			"endMs": 50150
+		},
+		{
+			"text": "olur.",
+			"startMs": 50187,
+			"endMs": 50594
+		},
+		{
+			"text": "Sen",
+			"startMs": 50817,
+			"endMs": 50965
+		},
+		{
+			"text": "hâlâ",
+			"startMs": 51113,
+			"endMs": 51409
+		},
+		{
+			"text": "o",
+			"startMs": 51446,
+			"endMs": 51483
+		},
+		{
+			"text": "balkonda",
+			"startMs": 51557,
+			"endMs": 51928
+		},
+		{
+			"text": "asılısın.",
+			"startMs": 52002,
+			"endMs": 52520
+		},
+		{
+			"text": "Peki",
+			"startMs": 52817,
+			"endMs": 53039
+		},
+		{
+			"text": "ya",
+			"startMs": 53113,
+			"endMs": 53187
+		},
+		{
+			"text": "yerçekimi",
+			"startMs": 53335,
+			"endMs": 53928
+		},
+		{
+			"text": "bir",
+			"startMs": 54002,
+			"endMs": 54150
+		},
+		{
+			"text": "günlüğüne",
+			"startMs": 54224,
+			"endMs": 54669
+		},
+		{
+			"text": "iki",
+			"startMs": 54817,
+			"endMs": 54965
+		},
+		{
+			"text": "katına",
+			"startMs": 55039,
+			"endMs": 55335
+		},
+		{
+			"text": "çıksaydı?",
+			"startMs": 55372,
+			"endMs": 56076
+		}
+	]
+}

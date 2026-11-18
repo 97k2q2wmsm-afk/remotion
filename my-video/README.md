@@ -1,3 +1,86 @@
+# Başına Gelseydi — otomatik sinematik Shorts/Reels üretim sistemi
+
+> "Ya bu gerçekten benim başıma gelseydi?" — kodla üretilen premium 2D animasyon hikâyeleri.
+> İlk seri: **Ya Böyle Olsaydı?** · Bölüm 1: **Yerçekimi 10 saniyeliğine yok olsaydı?**
+
+Her video **1080×1920, 30 fps, 50–60 sn**, Türkçe anlatıcı + Türkçe altyazı. Bütün görseller React/SVG/CSS ile
+programatik olarak çizilir (fotoğraf, stok görsel veya slayt yok).
+
+## Tek komutla bölüm üretimi
+
+```bash
+npm run bg:episode -- yercekimi          # ses → timeline → müzik/SFX → render → FFmpeg master → kapak → QC
+npm run bg:episode -- yercekimi --preview  # yarım çözünürlükte hızlı ön izleme
+npm run bg:new -- buzul "Buzullar bir gecede erirse?"   # yeni bölüm iskeleti (Root.tsx'e otomatik eklenir)
+npm run dev                               # Remotion Studio (Basina-Gelseydi klasörü)
+```
+
+Çıktılar `out/<bölüm>/` altında: `<bölüm>_final.mp4`, `<bölüm>.tr.srt`, `<bölüm>_kapak.jpg`, `contact_sheet.jpg`,
+`qc.json` (çözünürlük, fps, ses, LUFS raporu), `yayin_paketi.md` (başlıklar, açıklamalar, SEO, hashtag).
+
+## Üretim hattı
+
+```
+konu → araştırma + senaryo kuralları → 55–60 sn anlatım metni (story.json + publish.md)
+     → ElevenLabs (Türkçe ses, eleven_v4) + kelime zaman damgaları (Scribe)   scripts/data/<bölüm>/
+     → scripts/prepare.mjs   : tempo, EQ, -14 LUFS ses + sahne kesmeleri ve "hit"ler kelimelere kilitli
+     → scripts/bg-score.mjs  : özgün müzik + SFX (hikâye hit'leri + physics.ts çarpışmaları)
+     → Remotion              : sahneler, kamera, parallax, karakter animasyonu, altyazı, HUD (sessiz render)
+     → scripts/bg-master.mjs : FFmpeg — sidechain ducking (müzik sesi asla bastırmaz), loudnorm -14 LUFS,
+                               H.264 High/yuv420p/BT.709, +faststart, gömülü Türkçe altyazı izi (mov_text)
+```
+
+## Teknoloji paylaşımı
+
+| Katman | Kullanım |
+| --- | --- |
+| **Remotion** | Ana kompozisyon, zaman çizelgesi, sahne geçişleri, altyazılar, render (`src/channels/basina-gelseydi/ChannelVideo.tsx`) |
+| **Motion Canvas** | `@motion-canvas/core` 3.17.2 (yerel motion-canvas deposuyla aynı sürüm) zamanlama/ara-değer fonksiyonları: kamera hareketleri, karakter tepkileri, sayaç ve kart animasyonları (`src/engine/modern/motion.ts`) |
+| **FFmpeg** | Ses temizleme/tempo, miks, ducking, loudness, video kodlama, altyazı muxing, QC (`scripts/prepare.mjs`, `scripts/bg-master.mjs`) |
+
+## Kanal motoru (`src/engine/modern`, `src/channels/basina-gelseydi`)
+
+| Dosya | İçerik |
+| --- | --- |
+| `Person.tsx` | Eklemli 2D karakter: omuz/dirsek, kalça/diz, gövde, kafa; 9 yüz ifadesi, göz kırpma, nefes, yürüme; `POSES` (float, flail, jump, reach, hang, fall, sit…), `wobblePose` (havada savrulma), `CAST` (kalıcı kahraman **Kaan** + yan karakterler) |
+| `City.tsx` | Gökyüzü, güneş, bulut, İstanbul silueti, deniz, vapur, detaylı apartman (balkon, çamaşır, klima, dükkân tabelası), sokak, lamba, ağaç, araba/taksi/minibüs/otobüs, simit tezgâhı, ince belli çay bardağı, martı, kedi, 12 eşya |
+| `Fx.tsx` | Hız çizgileri, şok dalgası, toz bulutu, sıvı küre (yüzey gerilimi), glitch, sinematik ışık, letterbox |
+| `motion.ts` | Motion Canvas easing'leri + `tween`, `keys`, `kick` (sarsıntı) yardımcıları |
+| `brand.ts` | Kimlik: Anton + Montserrat (Türkçe karakterli, çevrimdışı), renk paleti |
+| `ChannelVideo.tsx` | Bölüm kompozisyonu: sahne geçişleri, kelime-kelime Türkçe altyazı, marka etiketi, ilerleme çubuğu |
+
+Bölüm klasörü (`src/stories/<bölüm>/`): `story.json` (senaryo kuralları, sahneler, hit'ler), `physics.ts`
+(senaryo fiziği — sahneler VE ses tasarımı aynı simülasyonu okur), `world.tsx`, `scenes.tsx`, `Cover.tsx`, `publish.md`.
+
+### Bölüm 1 — sahneler
+
+| # | Sahne | Çekimler |
+| --- | --- | --- |
+| 1 | hook (0–4 sn) | Havada asılı sokak (flash-forward) → yükselen kahramana dikey whip-pan |
+| 2 | sabah | İstanbul panoraması + vapur + martılar → trafik ve simitçi → çay yakın planı |
+| 3 | kapanış | Eczane saati 08:46→08:47 → glitch + şok dalgası, ayaklar yerden kesilir → geri çekilen kamera, her şey yükselir |
+| 4 | zıpla | "TEKRAR" 08:47:00 zıplayış → pencereler akarken takip çekimi + altimetre → direğe uzanma, kaçırma |
+| 5 | dünya | Dönen Dünya: düz giden sen vs kıvrılan yer → durakta 1 m yükselen kalabalık (ölçü çizgisi) → çayın havada küre olması |
+| 6 | askıda | 20 m yükseklikten süper geniş plan → donmuş kaosta yavaş pan → 8… 9… balkona tutunma |
+| 7 | dönüş | 1,00 g — aşağıdan bakış, her şey yanından düşer → sokakta fizik-senkron çarpışmalar + toz |
+| 8 | sonuç | Sersemlemiş insanlar → tepeden düşen taksi → yıkılmış sokağa vinç çekimi |
+| 9 | final | Balkonda asılı kahramanın yüzüne dolly-in → "YERÇEKİMİ 2 KATI?" sonraki bölüm kartı |
+
+## Yeni bölüm iş akışı (Claude ile)
+
+Claude'a "**Yeni bölüm: <konu>**" demeniz yeterli. Claude: konuyu araştırır, senaryo kurallarını ve 55–60 sn'lik
+metni yazar, `npm run bg:new` ile iskeleti açar, ElevenLabs'ta sesi ve kelime zamanlarını üretir
+(`scripts/data/<bölüm>/voice_raw.mp3`, `words_raw.json`), sahneleri motor bileşenleriyle kodlar,
+`publish.md` yayın paketini doldurur ve `npm run bg:episode -- <bölüm>` ile son MP4'ü alıp kontrol eder.
+
+## Kaynaklar ve lisanslar
+
+- Ses: ElevenLabs eleven_v4, "Eray | Cinematic Turkish Voice"; zaman damgaları ElevenLabs Scribe.
+- Müzik ve efektler: `scripts/bg-score.mjs` ile prosedürel üretim (tamamen özgün).
+- Yazı tipleri: Anton, Montserrat (SIL Open Font License) — `public/fonts`.
+
+---
+
 # La Voz del Legado — motor de Shorts históricos
 
 Videos históricos verticales (1080×1920, 30 FPS) creados **100 % con código** en Remotion.

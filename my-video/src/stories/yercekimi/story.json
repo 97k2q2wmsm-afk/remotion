@@ -1,0 +1,51 @@
+{
+  "id": "Yercekimi",
+  "channel": "basina-gelseydi",
+  "series": "Ya Böyle Olsaydı?",
+  "episode": 1,
+  "title": "Yerçekimi 10 saniyeliğine yok olsaydı?",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "voice": {
+    "raw": "scripts/data/yercekimi/voice_raw.mp3",
+    "words": "scripts/data/yercekimi/words_raw.json",
+    "tempo": 1.08,
+    "leadInSeconds": 0.15,
+    "tailSeconds": 1.8,
+    "provider": "ElevenLabs eleven_v4 · Eray | Cinematic Turkish Voice (KKeCA7uY2AJH3qyXgvpo)"
+  },
+  "music": {"bpm": 96, "root": 41},
+  "rules": [
+    "Yalnızca yüzeydeki cisimler için yerçekimi 10 saniye kapanır; Dünya'nın kendisi bir arada kalır ve dönmeye devam eder.",
+    "Newton'un 1. yasası: her cisim o anki hızını korur. Zıplayan biri saniyede ~3 m hızla dümdüz yükselmeye devam eder (10 sn ≈ 30 m).",
+    "Duran cisimler bile Dünya'nın dönüşü nedeniyle düz bir çizgide ilerler; yüzey altlarından kıvrılarak uzaklaşır: İstanbul enleminde (~41°) 10 saniyede ≈ 1 m yükselme.",
+    "Atmosfer 10 saniyede kaçamaz; basınç çok az düşer, rüzgâr ve uçuşan toz oluşur.",
+    "Sıvılar yüzey gerilimiyle küreler oluşturur (çay havada top olur).",
+    "Yerçekimi geri geldiğinde düşüş hızı v = √(2gh): 1 m → ~4,4 m/s (sarsıntı), 30 m → ~24 m/s (ağır hasar)."
+  ],
+  "scenes": [
+    {"id": "hook",    "anchor": "Yerçekimi on",      "transition": "none",  "intensity": 0.7,  "chord": [0, 3, 7]},
+    {"id": "sabah",   "anchor": "Sıradan bir",       "transition": "whip",  "intensity": 0.25, "chord": [-4, 0, 3]},
+    {"id": "kapanis", "anchor": "Ve saat",           "transition": "flash", "intensity": 0.55, "chord": [-2, 2, 5]},
+    {"id": "zipla",   "anchor": "Sen tam",           "transition": "zoom",  "intensity": 0.8,  "chord": [0, 3, 7]},
+    {"id": "dunya",   "anchor": "Dünya dönmeye",     "transition": "whip",  "intensity": 0.6,  "chord": [-4, 0, 3]},
+    {"id": "askida",  "anchor": "Yedinci saniye",    "transition": "fade",  "intensity": 0.3,  "chord": [-5, -2, 2]},
+    {"id": "donus",   "anchor": "On Yerçekimi",      "transition": "flash", "intensity": 1.0,  "chord": [-2, 1, 5]},
+    {"id": "sonuc",   "anchor": "Bir metre kalkanlar", "transition": "smoke", "intensity": 0.6, "chord": [-4, -1, 3]},
+    {"id": "final",   "anchor": "Sen hâlâ",          "transition": "zoom",  "intensity": 0.35, "chord": [0, 3, 10]}
+  ],
+  "hits": [
+    {"id": "off",    "word": "kapanır",       "kind": "gravity-off"},
+    {"id": "jump",   "word": "zıplamıştın",   "kind": "whoosh"},
+    {"id": "miss",   "word": "kaçırdın",      "kind": "miss"},
+    {"id": "tea",    "word": "top",           "kind": "bloop"},
+    {"id": "eight",  "word": "Sekiz",         "kind": "tick"},
+    {"id": "nine",   "word": "dokuz",         "kind": "tick"},
+    {"id": "grab",   "word": "tutunuyorsun",  "kind": "grab"},
+    {"id": "on",     "word": "On Yerçekimi",   "kind": "gravity-on"},
+    {"id": "fall",   "word": "düşer",         "kind": "crash"},
+    {"id": "slam",   "word": "çakılır",       "kind": "crash"},
+    {"id": "q",      "word": "çıksaydı",      "kind": "sting"}
+  ]
+}
