@@ -1,0 +1,901 @@
+{
+	"storyId": "Pompeya",
+	"fps": 30,
+	"durationInFrames": 1794,
+	"voiceStartFrame": 8,
+	"scenes": [
+		{
+			"id": "hook",
+			"anchor": "Año",
+			"transition": "none",
+			"intensity": 0.35,
+			"chord": [
+				0,
+				3,
+				7
+			],
+			"from": 0,
+			"to": 184
+		},
+		{
+			"id": "calles",
+			"anchor": "Sus calles",
+			"transition": "whip",
+			"intensity": 0.25,
+			"chord": [
+				-4,
+				0,
+				3
+			],
+			"from": 184,
+			"to": 467
+		},
+		{
+			"id": "erupcion",
+			"anchor": "Pero a mediodía",
+			"transition": "flash",
+			"intensity": 0.85,
+			"chord": [
+				-2,
+				1,
+				5
+			],
+			"from": 467,
+			"to": 679
+		},
+		{
+			"id": "noche",
+			"anchor": "El día se volvió",
+			"transition": "smoke",
+			"intensity": 0.75,
+			"chord": [
+				0,
+				3,
+				8
+			],
+			"from": 679,
+			"to": 952
+		},
+		{
+			"id": "plinio",
+			"anchor": "Al otro lado",
+			"transition": "whip",
+			"intensity": 0.6,
+			"chord": [
+				-4,
+				0,
+				3
+			],
+			"from": 952,
+			"to": 1128
+		},
+		{
+			"id": "nube",
+			"anchor": "Al amanecer",
+			"transition": "zoom",
+			"intensity": 1,
+			"chord": [
+				-2,
+				1,
+				5
+			],
+			"from": 1128,
+			"to": 1370
+		},
+		{
+			"id": "hallazgo",
+			"anchor": "Diecisiete siglos",
+			"transition": "flash",
+			"intensity": 0.3,
+			"chord": [
+				-7,
+				-3,
+				0
+			],
+			"from": 1370,
+			"to": 1602
+		},
+		{
+			"id": "outro",
+			"anchor": "Esto es",
+			"transition": "smoke",
+			"intensity": 0.5,
+			"chord": [
+				0,
+				3,
+				7
+			],
+			"from": 1602,
+			"to": 1794
+		}
+	],
+	"hits": [
+		{
+			"id": "blast",
+			"word": "despertó",
+			"kind": "blast",
+			"frame": 521
+		},
+		{
+			"id": "crash",
+			"word": "derrumbarse",
+			"kind": "crash",
+			"frame": 838
+		},
+		{
+			"id": "toll",
+			"word": "regresó",
+			"kind": "toll",
+			"frame": 1101
+		},
+		{
+			"id": "surge",
+			"word": "desapareció",
+			"kind": "blast",
+			"frame": 1335
+		},
+		{
+			"id": "logo",
+			"word": "Legado",
+			"kind": "boom",
+			"frame": 1638
+		}
+	],
+	"words": [
+		{
+			"text": "Año",
+			"startMs": 250,
+			"endMs": 524
+		},
+		{
+			"text": "setenta",
+			"startMs": 592,
+			"endMs": 934
+		},
+		{
+			"text": "y",
+			"startMs": 968,
+			"endMs": 1002
+		},
+		{
+			"text": "nueve",
+			"startMs": 1071,
+			"endMs": 1276
+		},
+		{
+			"text": "después",
+			"startMs": 1344,
+			"endMs": 1686
+		},
+		{
+			"text": "de",
+			"startMs": 1754,
+			"endMs": 1823
+		},
+		{
+			"text": "Cristo.",
+			"startMs": 1891,
+			"endMs": 2301
+		},
+		{
+			"text": "Pompeya",
+			"startMs": 2712,
+			"endMs": 3122
+		},
+		{
+			"text": "vivía",
+			"startMs": 3190,
+			"endMs": 3464
+		},
+		{
+			"text": "su",
+			"startMs": 3532,
+			"endMs": 3737
+		},
+		{
+			"text": "último",
+			"startMs": 3771,
+			"endMs": 4079
+		},
+		{
+			"text": "día...",
+			"startMs": 4147,
+			"endMs": 4763
+		},
+		{
+			"text": "y",
+			"startMs": 4797,
+			"endMs": 4831
+		},
+		{
+			"text": "nadie",
+			"startMs": 4968,
+			"endMs": 5241
+		},
+		{
+			"text": "lo",
+			"startMs": 5310,
+			"endMs": 5378
+		},
+		{
+			"text": "sabía.",
+			"startMs": 5447,
+			"endMs": 5857
+		},
+		{
+			"text": "Sus",
+			"startMs": 6267,
+			"endMs": 6404
+		},
+		{
+			"text": "calles",
+			"startMs": 6472,
+			"endMs": 6746
+		},
+		{
+			"text": "estaban",
+			"startMs": 6814,
+			"endMs": 7088
+		},
+		{
+			"text": "llenas",
+			"startMs": 7156,
+			"endMs": 7429
+		},
+		{
+			"text": "de",
+			"startMs": 7498,
+			"endMs": 7566
+		},
+		{
+			"text": "vida:",
+			"startMs": 7703,
+			"endMs": 8182
+		},
+		{
+			"text": "mercados,",
+			"startMs": 8318,
+			"endMs": 8934
+		},
+		{
+			"text": "panaderías,",
+			"startMs": 9002,
+			"endMs": 9754
+		},
+		{
+			"text": "tabernas.",
+			"startMs": 9857,
+			"endMs": 10438
+		},
+		{
+			"text": "Sobre",
+			"startMs": 10848,
+			"endMs": 10985
+		},
+		{
+			"text": "la",
+			"startMs": 11053,
+			"endMs": 11122
+		},
+		{
+			"text": "ciudad",
+			"startMs": 11190,
+			"endMs": 11464
+		},
+		{
+			"text": "dormía",
+			"startMs": 11498,
+			"endMs": 11874
+		},
+		{
+			"text": "el",
+			"startMs": 11908,
+			"endMs": 11942
+		},
+		{
+			"text": "Vesubio,",
+			"startMs": 11976,
+			"endMs": 12694
+		},
+		{
+			"text": "una",
+			"startMs": 12763,
+			"endMs": 12831
+		},
+		{
+			"text": "montaña",
+			"startMs": 12900,
+			"endMs": 13241
+		},
+		{
+			"text": "verde",
+			"startMs": 13378,
+			"endMs": 13652
+		},
+		{
+			"text": "que",
+			"startMs": 13720,
+			"endMs": 13857
+		},
+		{
+			"text": "nadie",
+			"startMs": 13925,
+			"endMs": 14267
+		},
+		{
+			"text": "creía",
+			"startMs": 14335,
+			"endMs": 14609
+		},
+		{
+			"text": "peligrosa.",
+			"startMs": 14677,
+			"endMs": 15224
+		},
+		{
+			"text": "Pero",
+			"startMs": 15703,
+			"endMs": 15840
+		},
+		{
+			"text": "a",
+			"startMs": 15874,
+			"endMs": 15908
+		},
+		{
+			"text": "mediodía,",
+			"startMs": 15976,
+			"endMs": 16660
+		},
+		{
+			"text": "la",
+			"startMs": 16729,
+			"endMs": 16797
+		},
+		{
+			"text": "montaña",
+			"startMs": 16865,
+			"endMs": 17276
+		},
+		{
+			"text": "despertó.",
+			"startMs": 17378,
+			"endMs": 18062
+		},
+		{
+			"text": "Una",
+			"startMs": 18301,
+			"endMs": 18370
+		},
+		{
+			"text": "columna",
+			"startMs": 18438,
+			"endMs": 18780
+		},
+		{
+			"text": "de",
+			"startMs": 18848,
+			"endMs": 18917
+		},
+		{
+			"text": "fuego",
+			"startMs": 18985,
+			"endMs": 19259
+		},
+		{
+			"text": "y",
+			"startMs": 19293,
+			"endMs": 19327
+		},
+		{
+			"text": "ceniza",
+			"startMs": 19395,
+			"endMs": 19737
+		},
+		{
+			"text": "se",
+			"startMs": 19806,
+			"endMs": 19874
+		},
+		{
+			"text": "elevó",
+			"startMs": 19908,
+			"endMs": 20147
+		},
+		{
+			"text": "más",
+			"startMs": 20216,
+			"endMs": 20353
+		},
+		{
+			"text": "de",
+			"startMs": 20421,
+			"endMs": 20558
+		},
+		{
+			"text": "treinta",
+			"startMs": 20626,
+			"endMs": 20968
+		},
+		{
+			"text": "kilómetros",
+			"startMs": 21036,
+			"endMs": 21583
+		},
+		{
+			"text": "hacia",
+			"startMs": 21652,
+			"endMs": 21788
+		},
+		{
+			"text": "el",
+			"startMs": 21823,
+			"endMs": 21857
+		},
+		{
+			"text": "cielo.",
+			"startMs": 21925,
+			"endMs": 22267
+		},
+		{
+			"text": "El",
+			"startMs": 22746,
+			"endMs": 22882
+		},
+		{
+			"text": "día",
+			"startMs": 22951,
+			"endMs": 23224
+		},
+		{
+			"text": "se",
+			"startMs": 23429,
+			"endMs": 23498
+		},
+		{
+			"text": "volvió",
+			"startMs": 23566,
+			"endMs": 23840
+		},
+		{
+			"text": "noche.",
+			"startMs": 23942,
+			"endMs": 24250
+		},
+		{
+			"text": "Durante",
+			"startMs": 24660,
+			"endMs": 25002
+		},
+		{
+			"text": "horas",
+			"startMs": 25071,
+			"endMs": 25344
+		},
+		{
+			"text": "llovió",
+			"startMs": 25389,
+			"endMs": 25618
+		},
+		{
+			"text": "piedra",
+			"startMs": 25754,
+			"endMs": 26028
+		},
+		{
+			"text": "pómez,",
+			"startMs": 26096,
+			"endMs": 26643
+		},
+		{
+			"text": "y",
+			"startMs": 26712,
+			"endMs": 26746
+		},
+		{
+			"text": "los",
+			"startMs": 26780,
+			"endMs": 26917
+		},
+		{
+			"text": "techos",
+			"startMs": 26985,
+			"endMs": 27259
+		},
+		{
+			"text": "comenzaron",
+			"startMs": 27327,
+			"endMs": 27806
+		},
+		{
+			"text": "a",
+			"startMs": 27840,
+			"endMs": 27874
+		},
+		{
+			"text": "derrumbarse.",
+			"startMs": 27919,
+			"endMs": 28489
+		},
+		{
+			"text": "Muchos",
+			"startMs": 28900,
+			"endMs": 29173
+		},
+		{
+			"text": "huyeron.",
+			"startMs": 29207,
+			"endMs": 29652
+		},
+		{
+			"text": "Otros",
+			"startMs": 29994,
+			"endMs": 30335
+		},
+		{
+			"text": "decidieron",
+			"startMs": 30472,
+			"endMs": 30882
+		},
+		{
+			"text": "esperar.",
+			"startMs": 31019,
+			"endMs": 31361
+		},
+		{
+			"text": "Al",
+			"startMs": 31840,
+			"endMs": 31976
+		},
+		{
+			"text": "otro",
+			"startMs": 32011,
+			"endMs": 32113
+		},
+		{
+			"text": "lado",
+			"startMs": 32182,
+			"endMs": 32318
+		},
+		{
+			"text": "de",
+			"startMs": 32353,
+			"endMs": 32387
+		},
+		{
+			"text": "la",
+			"startMs": 32455,
+			"endMs": 32524
+		},
+		{
+			"text": "bahía,",
+			"startMs": 32592,
+			"endMs": 33071
+		},
+		{
+			"text": "Plinio",
+			"startMs": 33139,
+			"endMs": 33412
+		},
+		{
+			"text": "el",
+			"startMs": 33447,
+			"endMs": 33481
+		},
+		{
+			"text": "Viejo",
+			"startMs": 33549,
+			"endMs": 33891
+		},
+		{
+			"text": "zarpó",
+			"startMs": 33959,
+			"endMs": 34301
+		},
+		{
+			"text": "con",
+			"startMs": 34370,
+			"endMs": 34438
+		},
+		{
+			"text": "sus",
+			"startMs": 34506,
+			"endMs": 34575
+		},
+		{
+			"text": "galeras",
+			"startMs": 34643,
+			"endMs": 34985
+		},
+		{
+			"text": "para",
+			"startMs": 35053,
+			"endMs": 35122
+		},
+		{
+			"text": "rescatarlos.",
+			"startMs": 35224,
+			"endMs": 35874
+		},
+		{
+			"text": "Nunca",
+			"startMs": 36353,
+			"endMs": 36626
+		},
+		{
+			"text": "regresó.",
+			"startMs": 36694,
+			"endMs": 37173
+		},
+		{
+			"text": "Al",
+			"startMs": 37720,
+			"endMs": 37788
+		},
+		{
+			"text": "amanecer,",
+			"startMs": 37857,
+			"endMs": 38541
+		},
+		{
+			"text": "una",
+			"startMs": 38609,
+			"endMs": 38746
+		},
+		{
+			"text": "nube",
+			"startMs": 38780,
+			"endMs": 38951
+		},
+		{
+			"text": "ardiente",
+			"startMs": 39053,
+			"endMs": 39429
+		},
+		{
+			"text": "descendió",
+			"startMs": 39532,
+			"endMs": 39908
+		},
+		{
+			"text": "por",
+			"startMs": 39976,
+			"endMs": 40045
+		},
+		{
+			"text": "la",
+			"startMs": 40113,
+			"endMs": 40182
+		},
+		{
+			"text": "ladera,",
+			"startMs": 40216,
+			"endMs": 40729
+		},
+		{
+			"text": "más",
+			"startMs": 40797,
+			"endMs": 40934
+		},
+		{
+			"text": "rápido",
+			"startMs": 41071,
+			"endMs": 41344
+		},
+		{
+			"text": "que",
+			"startMs": 41412,
+			"endMs": 41481
+		},
+		{
+			"text": "cualquier",
+			"startMs": 41549,
+			"endMs": 41959
+		},
+		{
+			"text": "caballo.",
+			"startMs": 42028,
+			"endMs": 42438
+		},
+		{
+			"text": "En",
+			"startMs": 42780,
+			"endMs": 42985
+		},
+		{
+			"text": "pocos",
+			"startMs": 43076,
+			"endMs": 43259
+		},
+		{
+			"text": "minutos,",
+			"startMs": 43327,
+			"endMs": 43942
+		},
+		{
+			"text": "Pompeya",
+			"startMs": 44011,
+			"endMs": 44421
+		},
+		{
+			"text": "desapareció.",
+			"startMs": 44489,
+			"endMs": 45173
+		},
+		{
+			"text": "Diecisiete",
+			"startMs": 45788,
+			"endMs": 46335
+		},
+		{
+			"text": "siglos",
+			"startMs": 46404,
+			"endMs": 46677
+		},
+		{
+			"text": "después,",
+			"startMs": 46746,
+			"endMs": 47361
+		},
+		{
+			"text": "los",
+			"startMs": 47429,
+			"endMs": 47498
+		},
+		{
+			"text": "arqueólogos",
+			"startMs": 47566,
+			"endMs": 48045
+		},
+		{
+			"text": "la",
+			"startMs": 48079,
+			"endMs": 48113
+		},
+		{
+			"text": "encontraron",
+			"startMs": 48182,
+			"endMs": 48660
+		},
+		{
+			"text": "bajo",
+			"startMs": 48706,
+			"endMs": 48797
+		},
+		{
+			"text": "la",
+			"startMs": 48865,
+			"endMs": 48900
+		},
+		{
+			"text": "ceniza.",
+			"startMs": 48934,
+			"endMs": 49412
+		},
+		{
+			"text": "La",
+			"startMs": 49754,
+			"endMs": 49823
+		},
+		{
+			"text": "misma",
+			"startMs": 49959,
+			"endMs": 50233
+		},
+		{
+			"text": "ceniza",
+			"startMs": 50301,
+			"endMs": 50643
+		},
+		{
+			"text": "que",
+			"startMs": 50677,
+			"endMs": 50712
+		},
+		{
+			"text": "la",
+			"startMs": 50780,
+			"endMs": 50848
+		},
+		{
+			"text": "destruyó...",
+			"startMs": 50882,
+			"endMs": 51806
+		},
+		{
+			"text": "la",
+			"startMs": 51840,
+			"endMs": 51874
+		},
+		{
+			"text": "había",
+			"startMs": 51942,
+			"endMs": 52216
+		},
+		{
+			"text": "preservado.",
+			"startMs": 52318,
+			"endMs": 52831
+		},
+		{
+			"text": "Esto",
+			"startMs": 53515,
+			"endMs": 53857
+		},
+		{
+			"text": "es",
+			"startMs": 53925,
+			"endMs": 54062
+		},
+		{
+			"text": "La",
+			"startMs": 54130,
+			"endMs": 54199
+		},
+		{
+			"text": "Voz",
+			"startMs": 54267,
+			"endMs": 54404
+		},
+		{
+			"text": "del",
+			"startMs": 54472,
+			"endMs": 54541
+		},
+		{
+			"text": "Legado.",
+			"startMs": 54609,
+			"endMs": 55293
+		},
+		{
+			"text": "Síguenos",
+			"startMs": 55327,
+			"endMs": 55703
+		},
+		{
+			"text": "para",
+			"startMs": 55771,
+			"endMs": 55908
+		},
+		{
+			"text": "más",
+			"startMs": 55976,
+			"endMs": 56113
+		},
+		{
+			"text": "historias",
+			"startMs": 56284,
+			"endMs": 56660
+		},
+		{
+			"text": "que",
+			"startMs": 56694,
+			"endMs": 56729
+		},
+		{
+			"text": "el",
+			"startMs": 56763,
+			"endMs": 56797
+		},
+		{
+			"text": "tiempo",
+			"startMs": 56934,
+			"endMs": 57276
+		},
+		{
+			"text": "no",
+			"startMs": 57412,
+			"endMs": 57481
+		},
+		{
+			"text": "pudo",
+			"startMs": 57618,
+			"endMs": 57823
+		},
+		{
+			"text": "borrar.",
+			"startMs": 57891,
+			"endMs": 58370
+		}
+	]
+}
