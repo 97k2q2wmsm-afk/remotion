@@ -46,7 +46,7 @@ export const POSES = {
 	float: {lean: -6, head: -4, armL: [-120, -30], armR: [120, 30], legL: [-24, 30], legR: [18, 46]},
 	flail: {lean: 8, head: 10, armL: [-150, -40], armR: [160, 50], legL: [-40, 60], legR: [30, 20]},
 	jump: {lean: -10, head: -8, armL: [-160, -10], armR: [165, 10], legL: [-30, 70], legR: [40, 80]},
-	reach: {lean: -8, head: -20, armL: [-30, 20], armR: [-142, -8], legL: [-20, 40], legR: [26, 30]},
+	reach: {lean: -8, head: -20, armL: [-30, 20], armR: [142, 8], legL: [-20, 40], legR: [26, 30]},
 	hang: {lean: 0, head: -10, armL: [-176, 6], armR: [176, -6], legL: [-6, 14], legR: [10, 22]},
 	fall: {lean: 10, head: 14, armL: [-140, 40], armR: [150, -50], legL: [-50, 20], legR: [40, 60]},
 	sit: {lean: -6, head: 6, armL: [-30, 50], armR: [34, -60], legL: [-80, -84], legR: [-74, -80]},
@@ -319,6 +319,9 @@ export const Person: React.FC<{
 		};
 		bob = -Math.abs(Math.cos(ph)) * 10;
 	}
+	// Pose convention: arm/leg angles swing outward-left for the L limbs; mirror for drawing.
+	const neg = (a: [number, number]): [number, number] => [-a[0], -a[1]];
+	p = {...p, armL: neg(p.armL), legL: neg(p.legL), armR: neg(p.armR), legR: neg(p.legR)};
 	const pants = look.topStyle === 'dress' ? look.top : look.pants;
 	const skirt = look.topStyle === 'dress';
 	return (

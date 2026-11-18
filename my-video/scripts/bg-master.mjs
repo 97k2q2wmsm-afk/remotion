@@ -51,12 +51,17 @@ const score = path.join(root, 'public', id, 'score.wav');
 const leadMs = Math.round((tl.voiceStartFrame / tl.fps) * 1000);
 const durS = (tl.durationInFrames / tl.fps).toFixed(3);
 const final = path.join(outDir, `${id}_final.mp4`);
-const filter = [
-	`[1:a]aresample=48000,adelay=${leadMs}|${leadMs},apad,atrim=0:${durS},highpass=f=80,equalizer=f=3200:t=q:w=1.2:g=2,asplit=2[vo][key]`,
-	`[2:a]aresample=48000,volume=0.62[mu]`,
+// pass 1: measure the mix so pass 2 can hit exactly -14 LUFS / -1 dBTP (linear loudnorm)
+const preMix = (ln) => [
+	`[1:a]aresample=48000,adelay=${leadMs}|${leadMs},apad,atrim=0:${durS},highpass=f=80,equalizer=f=3200:t=q:w=1.2:g=2,aformat=channel_layouts=stereo,asplit=2[vo][key]`,
+	`[2:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:${durS},volume=0.62[mu]`,
 	`[mu][key]sidechaincompress=threshold=0.035:ratio=5:attack=15:release=320:makeup=1[duck]`,
-	`[vo][duck]amix=inputs=2:normalize=0:weights=1 1,alimiter=limit=0.95,loudnorm=I=-14:TP=-1.0:LRA=11[aout]`,
+	`[vo][duck]amix=inputs=2:normalize=0:weights=1 1:duration=longest,alimiter=limit=0.95,${ln}[aout]`,
 ].join(';');
+const measure = execFileSync('sh', ['-c', `ffmpeg -hide_banner -nostats -i "${voice}" -i "${score}" -filter_complex "${preMix('loudnorm=I=-14:TP=-1.0:LRA=11:print_format=json').replace('[1:a]', '[0:a]').replace('[2:a]', '[1:a]')}" -map "[aout]" -f null - 2>&1`]).toString();
+const m = JSON.parse(measure.slice(measure.lastIndexOf('{'), measure.lastIndexOf('}') + 1));
+const LOUDNORM = `loudnorm=I=-14:TP=-1.0:LRA=11:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}:linear=true`;
+const filter = preMix(LOUDNORM);
 execFileSync(
 	'ffmpeg',
 	[
@@ -70,7 +75,7 @@ execFileSync(
 		'-c:a', 'aac', '-b:a', '256k', '-ar', '48000',
 		'-c:s', 'mov_text', '-metadata:s:s:0', 'language=tur', '-metadata:s:a:0', 'language=tur',
 		'-metadata', `title=${story.title}`, '-metadata', 'artist=Başına Gelseydi',
-		'-movflags', '+faststart', '-shortest',
+		'-movflags', '+faststart', '-t', durS,
 		final,
 	],
 	{stdio: 'inherit'},

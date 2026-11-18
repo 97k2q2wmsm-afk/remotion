@@ -157,7 +157,7 @@ export const Morning: React.FC<SceneProps> = ({durationInFrames: d, word}) => {
 	// Tea close-up on the café table (the tea that will later float).
 	const f = frame - tTea;
 	const tea = ITEMS.find((i) => i.id === 'tea')!;
-	const cam: Cam = {x: tea.x0 - 30, y: tea.y0 - 30, zoom: keys(f, [[0, 3.4], [d - tTea, 3.9]]), rot: 0};
+	const cam: Cam = {x: tea.x0 - 10, y: tea.y0 - 70, zoom: keys(f, [[0, 4.4], [d - tTea, 5.0]]), rot: 0};
 	return (
 		<AbsoluteFill>
 			<World cam={cam} gf={gf} hero={false}>
