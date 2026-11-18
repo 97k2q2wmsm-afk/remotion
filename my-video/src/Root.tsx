@@ -1,9 +1,10 @@
-import { MyComposition } from "./Composition";
+import {Folder} from 'remotion';
+import {PompeyaComposition} from './stories/pompeya';
 
 export const RemotionRoot: React.FC = () => {
-  return (
-    <>
-      <MyComposition />
-    </>
-  );
+	return (
+		<Folder name="La-Voz-del-Legado">
+			<PompeyaComposition />
+		</Folder>
+	);
 };

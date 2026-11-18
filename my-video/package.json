@@ -1,7 +1,7 @@
 {
-  "name": "my-video",
+  "name": "la-voz-del-legado",
   "version": "1.0.0",
-  "description": "My Remotion video",
+  "description": "La Voz del Legado — motor de YouTube Shorts históricos con Remotion",
   "repository": {},
   "license": "UNLICENSED",
   "engines": {
@@ -9,7 +9,11 @@
   },
   "private": true,
   "dependencies": {
+    "@remotion/captions": "4.0.545",
     "@remotion/cli": "4.0.545",
+    "@remotion/fonts": "4.0.545",
+    "@remotion/media-utils": "4.0.545",
+    "@remotion/transitions": "4.0.545",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "remotion": "4.0.545"
@@ -26,7 +30,11 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "story:timeline": "node scripts/prepare.mjs",
+    "story:score": "node scripts/score.mjs",
+    "pompeya:build": "node scripts/prepare.mjs pompeya && node scripts/score.mjs pompeya",
+    "pompeya:render": "remotion render Pompeya out/pompeya_ultimo_dia.mp4 --codec=h264 --crf=18 --audio-bitrate=320k"
   },
   "allowScripts": {
     "esbuild": false

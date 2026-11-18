@@ -11,3 +11,12 @@ Config.setRspack(true);
 Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
 Config.setDefaultPremountInSeconds(2);
+
+// Sandboxed/offline environments: reuse a pre-installed headless Chromium if present,
+// otherwise Remotion downloads its own Chrome Headless Shell as usual.
+import {existsSync} from 'node:fs';
+const LOCAL_SHELL =
+	'/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell';
+if (existsSync(LOCAL_SHELL)) {
+	Config.setBrowserExecutable(LOCAL_SHELL);
+}

@@ -1,0 +1,135 @@
+{
+  "id": "Pompeya",
+  "title": "El último día de Pompeya",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "voice": {
+    "raw": "scripts/data/voice_raw.mp3",
+    "words": "scripts/data/words_raw.json",
+    "tempo": 1.17,
+    "leadInSeconds": 0.25,
+    "tailSeconds": 1.4
+  },
+  "music": {
+    "bpm": 84,
+    "root": 38
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "anchor": "Año",
+      "transition": "none",
+      "intensity": 0.35,
+      "chord": [
+        0,
+        3,
+        7
+      ]
+    },
+    {
+      "id": "calles",
+      "anchor": "Sus calles",
+      "transition": "whip",
+      "intensity": 0.25,
+      "chord": [
+        -4,
+        0,
+        3
+      ]
+    },
+    {
+      "id": "erupcion",
+      "anchor": "Pero a mediodía",
+      "transition": "flash",
+      "intensity": 0.85,
+      "chord": [
+        -2,
+        1,
+        5
+      ]
+    },
+    {
+      "id": "noche",
+      "anchor": "El día se volvió",
+      "transition": "smoke",
+      "intensity": 0.75,
+      "chord": [
+        0,
+        3,
+        8
+      ]
+    },
+    {
+      "id": "plinio",
+      "anchor": "Al otro lado",
+      "transition": "whip",
+      "intensity": 0.6,
+      "chord": [
+        -4,
+        0,
+        3
+      ]
+    },
+    {
+      "id": "nube",
+      "anchor": "Al amanecer",
+      "transition": "zoom",
+      "intensity": 1,
+      "chord": [
+        -2,
+        1,
+        5
+      ]
+    },
+    {
+      "id": "hallazgo",
+      "anchor": "Diecisiete siglos",
+      "transition": "flash",
+      "intensity": 0.3,
+      "chord": [
+        -7,
+        -3,
+        0
+      ]
+    },
+    {
+      "id": "outro",
+      "anchor": "Esto es",
+      "transition": "smoke",
+      "intensity": 0.5,
+      "chord": [
+        0,
+        3,
+        7
+      ]
+    }
+  ],
+  "hits": [
+    {
+      "id": "blast",
+      "word": "despertó",
+      "kind": "blast"
+    },
+    {
+      "id": "crash",
+      "word": "derrumbarse",
+      "kind": "crash"
+    },
+    {
+      "id": "toll",
+      "word": "regresó",
+      "kind": "toll"
+    },
+    {
+      "id": "surge",
+      "word": "desapareció",
+      "kind": "blast"
+    },
+    {
+      "id": "logo",
+      "word": "Legado",
+      "kind": "boom"
+    }
+  ]
+}
