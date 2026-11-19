@@ -39,17 +39,24 @@ function useServiceWorker() {
   const { toast } = useFeedback();
   useEffect(() => {
     if (!('serviceWorker' in navigator) || process.env.NODE_ENV !== 'production') return;
-    let reloading = false;
+    // Reload only after the person accepted an update — never on the first install (clients.claim()).
+    let updateAccepted = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (reloading) return;
-      reloading = true;
+      if (!updateAccepted) return;
+      updateAccepted = false;
       location.reload();
     });
     navigator.serviceWorker
       .register('/sw.js', { scope: '/' })
       .then((reg) => {
         const offer = (w: ServiceWorker) =>
-          toast('A new version of Creator Studio is ready.', 'info', { label: 'Update', run: () => w.postMessage({ type: 'SKIP_WAITING' }) });
+          toast('A new version of Creator Studio is ready.', 'info', {
+            label: 'Update',
+            run: () => {
+              updateAccepted = true;
+              w.postMessage({ type: 'SKIP_WAITING' });
+            },
+          });
         if (reg.waiting && navigator.serviceWorker.controller) offer(reg.waiting);
         reg.addEventListener('updatefound', () => {
           const w = reg.installing;
@@ -128,7 +135,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <main className="pl-safe pr-safe mx-auto w-full max-w-6xl px-4 pb-[calc(env(safe-area-inset-bottom)+96px)] pt-5 lg:pb-12 lg:pl-[calc(16rem+2rem)] lg:pr-8">{children}</main>
+      <main className="px-gutter mx-auto w-full max-w-6xl pb-[calc(env(safe-area-inset-bottom)+96px)] pt-5 lg:pb-12 lg:pl-[calc(16rem+2rem)] lg:pr-8">{children}</main>
 
       <nav className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bg/90 backdrop-blur-xl lg:hidden" aria-label="Main">
         <div className="grid h-16 grid-cols-5">

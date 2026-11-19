@@ -45,6 +45,7 @@ function Editor({ project, update, initialPanel }: { project: Project; update: (
   const [selection, setSelection] = useState<Selection>(null);
   const [panel, setPanel] = useState<Panel>(initialPanel);
   const [building, setBuilding] = useState(false);
+  const [switching, setSwitching] = useState(false);
   const [notes, setNotes] = useState<string[]>([]);
   const past = useRef<Timeline[]>([]);
   const future = useRef<Timeline[]>([]);
@@ -109,20 +110,38 @@ function Editor({ project, update, initialPanel }: { project: Project; update: (
   };
 
   const switchMode = async (m: EditMode) => {
-    if (m === mode) return;
+    if (m === mode || switching) return;
     clearTimeout(saveTimer.current);
     saveTimer.current = undefined;
-    await update((p) => {
-      if (tl) p.timelines[mode] = tl; // keep the edits of the mode we leave
-      if (m === 'manual' && !p.timelines.manual && tl) p.timelines.manual = { ...structuredClone(tl), updatedAt: Date.now() };
-      p.editMode = m;
-    });
-    past.current = [];
-    future.current = [];
+    // Block editing until the new mode's timeline is loaded, so no edit lands on the old mode.
+    setSwitching(true);
     setSelection(null);
+    try {
+      await update((p) => {
+        if (tl) p.timelines[mode] = tl; // keep the edits of the mode we leave
+        if (m === 'manual' && !p.timelines.manual && tl) p.timelines.manual = { ...structuredClone(tl), updatedAt: Date.now() };
+        p.editMode = m;
+      });
+    } finally {
+      past.current = [];
+      future.current = [];
+      setSwitching(false);
+    }
   };
 
+  /** Writes any pending edit immediately (used before rendering). */
+  const flush = useCallback(async () => {
+    if (!saveTimer.current || !tl) return;
+    clearTimeout(saveTimer.current);
+    saveTimer.current = undefined;
+    savedAt.current = tl.updatedAt;
+    await update((p) => {
+      p.timelines[mode] = tl;
+    });
+  }, [tl, mode, update]);
+
   const autoBuild = async (thenRender: boolean) => {
+    await flush();
     if (tl && !(await confirm({ title: `Rebuild the ${EDIT_MODE_LABELS[mode === 'manual' ? 'auto' : mode].title}?`, body: 'The timeline of this mode is rebuilt from the scenes. Other modes keep their edits. You can undo.', confirm: 'Rebuild' }))) return;
     setBuilding(true);
     try {
@@ -191,7 +210,8 @@ function Editor({ project, update, initialPanel }: { project: Project; update: (
         </>
       )}
 
-      {tl && (
+      {switching && <div className="skeleton h-64 rounded-2xl" />}
+      {tl && !switching && (
         <div className="space-y-4">
           <Player ref={player} timeline={tl} time={time} onTime={setTime} />
           <TimelineView
@@ -210,7 +230,7 @@ function Editor({ project, update, initialPanel }: { project: Project; update: (
           {panel === 'captions' && <CaptionsPanel project={project} timeline={tl} onChange={change} />}
           {panel === 'audio' && <AudioPanel project={project} timeline={tl} onChange={change} time={time} />}
           {panel === 'text' && <TextPanel timeline={tl} onChange={change} time={time} />}
-          {panel === 'render' && <RenderPanel project={project} timeline={tl} onSettings={setRender} />}
+          {panel === 'render' && <RenderPanel project={project} timeline={tl} onSettings={setRender} beforeRender={flush} />}
         </div>
       )}
       {!tl && project.scenes.length > 0 && <Card className="text-sm text-muted">No edit for this mode yet. Press the button above to create it from your scenes, images and narration.</Card>}

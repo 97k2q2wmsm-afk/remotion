@@ -7,10 +7,27 @@ const FFMPEG = 'ffmpeg-0.12.10'; // large runtime, kept across app updates
 const ROUTES = ['/', '/create', '/projects', '/project', '/images', '/thumbnails', '/editor', '/seo', '/channels', '/settings'];
 const ASSETS = ['/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png', '/fonts/Montserrat-latin.woff2', '/fonts/Montserrat-latin-ext.woff2', '/fonts/Anton-latin.woff2', '/fonts/Anton-latin-ext.woff2', '/fonts/Cinzel.woff2'];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(SHELL).then((cache) => Promise.allSettled([...ROUTES, ...ASSETS].map((u) => cache.add(new Request(u, { cache: 'reload' }))))),
+// Caches every route's HTML plus the /_next/static chunks it references, so all screens open offline
+// even if they were never visited while online.
+async function precache() {
+  const shell = await caches.open(SHELL);
+  const stat = await caches.open(STATIC);
+  await Promise.allSettled(ASSETS.map((u) => shell.add(new Request(u, { cache: 'reload' }))));
+  const chunks = new Set();
+  await Promise.allSettled(
+    ROUTES.map(async (route) => {
+      const res = await fetch(new Request(route, { cache: 'reload' }));
+      if (!res.ok) return;
+      await shell.put(route, res.clone());
+      const html = await res.text();
+      for (const m of html.matchAll(/\/_next\/static\/[^"'\s)\\]+/g)) chunks.add(m[0]);
+    }),
   );
+  await Promise.allSettled([...chunks].map((u) => stat.add(u)));
+}
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(precache());
 });
 
 self.addEventListener('activate', (event) => {

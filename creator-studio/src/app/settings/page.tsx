@@ -19,7 +19,7 @@ import {
   VISUAL_STYLE_LABELS,
   type ProviderKind,
 } from '@/config/states';
-import { Badge, Button, Card, Field, InfoNote, Input, PageHeader, SectionTitle, Select, Sheet, Tabs, Toggle } from '@/components/ui';
+import { AutoText, Badge, Button, Card, Field, InfoNote, Input, PageHeader, SectionTitle, Select, Sheet, Tabs, Toggle } from '@/components/ui';
 import { useFeedback } from '@/components/feedback';
 import { useLive, useProviders, useSettings } from '@/hooks/data';
 import { serverStatus, testProviderConnection } from '@/services/ai/client';
@@ -31,6 +31,12 @@ import { requestPersistentStorage, storageEstimate } from '@/services/storage/db
 import { exportProjectBackup } from '@/services/export/zip';
 import { testWorker } from '@/services/rendering/cloud';
 import { downloadBlob, errorMessage, formatBytes, formatDate, slugify, uid } from '@/utils';
+
+function SecretText({ value, onSave }: { value: string; onSave: (v: string) => void }) {
+  const [v, setV] = useState(value);
+  useEffect(() => setV(value), [value]);
+  return <Input type="password" autoComplete="off" value={v} onChange={(e) => setV(e.target.value)} onBlur={() => v !== value && onSave(v)} />;
+}
 
 type Section = 'providers' | 'general' | 'rendering' | 'storage' | 'security';
 
@@ -326,7 +332,7 @@ export default function SettingsPage() {
           <Field label="Interface language" hint="The interface is currently in English. Scripts, voice-over, subtitles and SEO use each project's own language (Turkish, Spanish, English…).">
             <Select value={settings.uiLanguage} onChange={(v) => save({ uiLanguage: v })} options={[{ value: 'en', label: 'English' }, { value: 'tr', label: 'Türkçe (interface not yet translated)' }, { value: 'es', label: 'Español (interface not yet translated)' }]} />
           </Field>
-          <Field label="Default video language"><Input value={settings.defaultLanguage} onChange={(e) => save({ defaultLanguage: e.target.value })} /></Field>
+          <Field label="Default video language"><AutoText value={settings.defaultLanguage} onSave={(v) => save({ defaultLanguage: v })} /></Field>
           <Field label="Default video format"><Select value={settings.defaultFormat} onChange={(v) => save({ defaultFormat: v })} options={VIDEO_FORMATS.map((f) => ({ value: f, label: FORMAT_LABELS[f] }))} /></Field>
           <Field label="Default image style"><Select value={settings.defaultVisualStyle} onChange={(v) => save({ defaultVisualStyle: v })} options={VISUAL_STYLES.map((s) => ({ value: s, label: VISUAL_STYLE_LABELS[s] }))} /></Field>
           <Field label="Parallel image generations" hint="1 protects iPhone memory and free quotas. Use 2–3 only with self-hosted or paid providers.">
@@ -347,8 +353,8 @@ export default function SettingsPage() {
           <Card className="space-y-3">
             <div className="flex items-center gap-2 font-bold"><Cloud className="size-4 text-accent" /> Cloud render worker</div>
             <p className="text-sm text-muted">For long videos, deploy the included render worker (native FFmpeg, Docker; see README) and connect it here. Assets are uploaded to your worker only when you render with it, and deleted from it after download.</p>
-            <Field label="Worker URL"><Input value={settings.cloudWorkerUrl ?? ''} placeholder="https://creator-studio-render.fly.dev" onChange={(e) => save({ cloudWorkerUrl: e.target.value.trim() || undefined })} /></Field>
-            <Field label="Worker token"><Input type="password" autoComplete="off" value={settings.cloudWorkerToken ?? ''} onChange={(e) => save({ cloudWorkerToken: e.target.value || undefined })} /></Field>
+            <Field label="Worker URL"><AutoText value={settings.cloudWorkerUrl ?? ''} placeholder="https://creator-studio-render.fly.dev" onSave={(v) => save({ cloudWorkerUrl: v.trim() || undefined })} /></Field>
+            <Field label="Worker token"><SecretText value={settings.cloudWorkerToken ?? ''} onSave={(v) => save({ cloudWorkerToken: v || undefined })} /></Field>
             <div className="flex items-center gap-2">
               <Button size="sm" disabled={!settings.cloudWorkerUrl} onClick={async () => {
                 try {
@@ -374,7 +380,7 @@ export default function SettingsPage() {
           </ul>
           <Field label="App access token" hint="Must match APP_ACCESS_TOKEN on the server (if set).">
             <div className="flex gap-2">
-              <Input type="password" autoComplete="off" value={settings.appToken ?? ''} onChange={(e) => save({ appToken: e.target.value || undefined })} />
+              <SecretText value={settings.appToken ?? ''} onSave={(v) => save({ appToken: v || undefined })} />
               <Button icon={<KeyRound className="size-4" />} onClick={async () => {
                 const s = await serverStatus();
                 toast('error' in s ? s.error : 'Server accepted the token', 'error' in s ? 'error' : 'success');

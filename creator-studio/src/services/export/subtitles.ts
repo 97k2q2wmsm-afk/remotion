@@ -52,7 +52,7 @@ function assTime(t: number) {
   return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(cs % 100).padStart(2, '0')}`;
 }
 
-/** ASS subtitles for FFmpeg rendering, styled like the on-device compositor (incl. karaoke word highlight). */
+/** ASS subtitles for FFmpeg rendering, styled like the on-device compositor (incl. current-word highlight). */
 export function toAss(cues: CaptionCue[], style: CaptionStyle, width: number, height: number): string {
   const size = Math.round((style.size / 100) * height);
   const align = style.position === 'bottom' ? 2 : style.position === 'top' ? 8 : 5;
@@ -70,27 +70,29 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Default,${style.font === 'system-ui' ? 'DejaVu Sans' : style.font},${size},${assColor(style.wordHighlight ? style.highlightColor : style.color)},${assColor(style.color)},${outlineColor},${back},-1,0,0,0,100,100,0,0,${borderStyle},${outline},0,${align},${Math.round(width * 0.07)},${Math.round(width * 0.07)},${marginV},1
+Style: Default,${style.font === 'system-ui' ? 'DejaVu Sans' : style.font},${size},${assColor(style.color)},${assColor(style.color)},${outlineColor},${back},-1,0,0,0,100,100,0,0,${borderStyle},${outline},0,${align},${Math.round(width * 0.07)},${Math.round(width * 0.07)},${marginV},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 `;
   const esc = (t: string) => (style.uppercase ? t.toLocaleUpperCase() : t).replace(/[{}]/g, '').replace(/\n/g, '\\N');
-  const lines = cues.map((c) => {
-    let text: string;
+  const hl = `{\\c${assColor(style.highlightColor)}}`;
+  const base = `{\\c${assColor(style.color)}}`;
+  const anim = style.animation === 'fade' ? '{\\fad(150,0)}' : style.animation === 'pop' ? '{\\fscx85\\fscy85\\t(0,120,\\fscx100\\fscy100)}' : '';
+  const lines: string[] = [];
+  for (const c of cues) {
     if (style.wordHighlight && c.words?.length) {
-      // \k durations in centiseconds; secondary colour is shown until the word is reached.
-      text = c.words
-        .map((w, i) => {
-          const next = c.words![i + 1]?.start ?? c.end;
-          return `{\\k${Math.max(1, Math.round((next - w.start) * 100))}}${esc(w.text)}`;
-        })
-        .join(' ');
-      const lead = Math.max(0, Math.round((c.words[0].start - c.start) * 100));
-      if (lead) text = `{\\k${lead}}${text}`;
-    } else text = esc(c.text);
-    const anim = style.animation === 'fade' ? '{\\fad(150,0)}' : style.animation === 'pop' ? '{\\fscx85\\fscy85\\t(0,120,\\fscx100\\fscy100)}' : '';
-    return `Dialogue: 0,${assTime(c.start)},${assTime(c.end)},Default,,0,0,0,,${anim}${text}`;
-  });
+      // One event per word: the current word in the highlight colour, like the on-device compositor.
+      const words = c.words;
+      const spans: [number, number][] = [];
+      if (words[0].start > c.start + 0.01) spans.push([c.start, words[0].start]);
+      words.forEach((w, i) => spans.push([w.start, words[i + 1]?.start ?? c.end]));
+      spans.forEach(([a, b], k) => {
+        const active = words[0].start > c.start + 0.01 ? k - 1 : k;
+        const text = words.map((w, i) => (i === active ? `${hl}${esc(w.text)}${base}` : esc(w.text))).join(' ');
+        lines.push(`Dialogue: 0,${assTime(a)},${assTime(b)},Default,,0,0,0,,${base}${k === 0 ? anim : ''}${text}`);
+      });
+    } else lines.push(`Dialogue: 0,${assTime(c.start)},${assTime(c.end)},Default,,0,0,0,,${anim}${esc(c.text)}`);
+  }
   return header + lines.join('\n') + '\n';
 }

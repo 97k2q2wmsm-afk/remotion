@@ -83,3 +83,9 @@ input, textarea, select { font-size: 16px; } /* prevents iOS zoom on focus */
 @keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
 .skeleton { background: linear-gradient(90deg, var(--surface-2), var(--surface-3), var(--surface-2)); background-size: 800px 100%; animation: shimmer 1.4s infinite linear; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* Side gutter that respects the notch/rounded corners but never drops below 16px. */
+@utility px-gutter {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}

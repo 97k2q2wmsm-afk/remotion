@@ -8,9 +8,16 @@ export async function getSettings(): Promise<AppSettings> {
   return { ...DEFAULT_SETTINGS, ...(s ?? {}), defaultRender: { ...DEFAULT_SETTINGS.defaultRender, ...(s?.defaultRender ?? {}) } };
 }
 
-export async function saveSettings(patch: Partial<AppSettings>) {
-  const cur = await getSettings();
-  await kvSet('settings', { ...cur, ...patch });
+// Writes are chained so two quick edits can never overwrite each other with stale values.
+let settingsChain: Promise<void> = Promise.resolve();
+export function saveSettings(patch: Partial<AppSettings>): Promise<void> {
+  settingsChain = settingsChain
+    .catch(() => {})
+    .then(async () => {
+      const cur = await getSettings();
+      await kvSet('settings', { ...cur, ...patch });
+    });
+  return settingsChain;
 }
 
 export async function listProviders(): Promise<ProviderConfig[]> {

@@ -33,8 +33,15 @@ const shot = async (name) => {
 // Center the element first so the fixed bottom navigation never covers it (as a person would scroll).
 const tap = async (loc) => {
   try {
-    await loc.evaluate((e) => e.scrollIntoView({ block: 'center' }), undefined, { timeout: 30000 });
-    await loc.click({ timeout: 30000 });
+    for (let attempt = 0; ; attempt++) {
+      await loc.evaluate((e) => e.scrollIntoView({ block: 'center' }), undefined, { timeout: 30000 });
+      try {
+        await loc.click({ timeout: 4000 });
+        break;
+      } catch (err) {
+        if (attempt >= 6) throw err;
+      }
+    }
   } catch (e) {
     await page.screenshot({ path: join(OUT, 'failure.png'), timeout: 10000 }).catch(() => {});
     writeFileSync(join(OUT, 'failure.html'), await page.content());
@@ -57,13 +64,17 @@ log('dashboard ok');
 async function addProvider(kindLabel, catalogName, fields) {
   await page.goto(`${BASE}/settings`);
   await page.getByText('Voice (TTS)', { exact: true }).waitFor();
+  await page.getByText('ELEVENLABS_API_KEY').waitFor();
   const section = page.locator('h2', { hasText: kindLabel }).locator('..');
+  log('add provider', catalogName);
   await tap(section.getByRole('button', { name: 'Add' }));
   await page.getByRole('dialog').getByText(catalogName, { exact: false }).first().click();
   const dlg = page.getByRole('dialog');
   for (const [label, value] of Object.entries(fields)) await dlg.getByLabel(label, { exact: false }).fill(value);
   await tap(dlg.getByRole('button', { name: 'Save & test' }));
-  await page.getByText(/Reachable|ComfyUI mock/).first().waitFor({ timeout: 15000 });
+  await dlg.waitFor({ state: 'detached' });
+  await page.getByText(catalogName, { exact: false }).first().waitFor({ timeout: 15000 });
+  await page.waitForTimeout(1500);
 }
 await addProvider('Text / script AI', 'Self-hosted (Ollama', { 'Base URL': `${MOCK}/v1`, Model: 'mock-llm' });
 await addProvider('Image generation', 'ComfyUI', { 'ComfyUI URL': MOCK, 'Checkpoint file': 'mock.safetensors' });
@@ -146,6 +157,31 @@ await dl.saveAs(mp4b);
 const p2 = probe(mp4b);
 log('manual/ffmpeg.wasm MP4', JSON.stringify(p2));
 if (!p2.streams.some((s) => s.codec_name === 'h264') || !p2.streams.some((s) => s.codec_name === 'aac')) fail('wasm MP4 missing h264/aac');
+// The manual edit lengthened one clip by 0.1 s: the new render must include it.
+if (!(Number(p2.format.duration) > Number(p1.format.duration) + 0.05)) fail(`manual edit missing from render (${p1.format.duration} → ${p2.format.duration})`);
+
+// 7b. Cloud render worker (optional: WORKER_URL + WORKER_TOKEN)
+if (process.env.WORKER_URL) {
+  await page.goto(`${BASE}/settings`);
+  await tap(page.getByRole('button', { name: 'Rendering' }));
+  await page.getByPlaceholder('https://creator-studio-render.fly.dev').fill(process.env.WORKER_URL);
+  await page.locator('input[type=password]').first().fill(process.env.WORKER_TOKEN ?? '');
+  await page.locator('input[type=password]').first().blur();
+  await tap(page.getByRole('button', { name: 'Test worker' }));
+  await page.getByText(/Online/).waitFor({ timeout: 15000 });
+  await page.goto(`${BASE}/editor?project=${projectId}&panel=render`);
+  await page.getByRole('button', { name: /Render MP4 \(/ }).waitFor();
+  await page.locator('select').filter({ hasText: 'Cloud render worker' }).first().selectOption('cloud');
+  await page.locator('select').filter({ hasText: '720p HD' }).first().selectOption('1080p');
+  await tap(page.getByRole('button', { name: /Render MP4 \(/ }));
+  await page.getByText('Your MP4 is ready!').waitFor({ timeout: 600000 });
+  [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download MP4' }).last().click()]);
+  const mp4c = join(OUT, 'cloud-1080p.mp4');
+  await dl.saveAs(mp4c);
+  const p3 = probe(mp4c);
+  log('cloud worker MP4', JSON.stringify(p3));
+  if (!p3.streams.some((s) => s.codec_name === 'h264' && Math.min(s.width, s.height) === 1080) || !p3.streams.some((s) => s.codec_name === 'aac')) fail('cloud MP4 wrong');
+}
 
 // 8. Thumbnail + SEO pages render
 await page.goto(`${BASE}/thumbnails?project=${projectId}`);

@@ -78,7 +78,7 @@ export function newChannel(partial: Partial<Channel> = {}): Channel {
 
 /** Editable starter profiles. Each channel keeps its own identity; nothing is shared implicitly. */
 export function seedChannels(): Channel[] {
-  return [
+  const list = [
     newChannel({
       name: 'Başına Gelseydi',
       description:
@@ -155,6 +155,9 @@ export function seedChannels(): Channel[] {
       musicMood: 'uplifting',
     }),
   ];
+  const base = Date.now();
+  // Distinct timestamps keep the listed order stable (Başına Gelseydi first).
+  return list.map((c, i) => ({ ...c, createdAt: base + i, updatedAt: base + i }));
 }
 
 export function initialStages(): Record<StageId, StageState> {

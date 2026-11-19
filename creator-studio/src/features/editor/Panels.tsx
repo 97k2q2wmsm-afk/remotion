@@ -193,7 +193,7 @@ export function TextPanel({ timeline, onChange, time }: { timeline: Timeline; on
 
 const QC_ICON = { ok: CheckCircle2, warning: AlertTriangle, error: XCircle };
 
-export function RenderPanel({ project, timeline, onSettings }: { project: Project; timeline: Timeline; onSettings: (s: Partial<RenderSettings>) => void }) {
+export function RenderPanel({ project, timeline, onSettings, beforeRender }: { project: Project; timeline: Timeline; onSettings: (s: Partial<RenderSettings>) => void; beforeRender: () => Promise<void> }) {
   const { toast } = useFeedback();
   const { settings } = useSettings();
   const render = useActiveRender();
@@ -214,6 +214,7 @@ export function RenderPanel({ project, timeline, onSettings }: { project: Projec
   const check = async () => {
     setChecking(true);
     try {
+      await beforeRender();
       setQc(await runQualityChecks(project, timeline));
     } catch (e) {
       toast(errorMessage(e), 'error');
@@ -224,6 +225,7 @@ export function RenderPanel({ project, timeline, onSettings }: { project: Projec
 
   const start = async () => {
     try {
+      await beforeRender();
       await renderProject(project.id);
       toast('Your MP4 is ready!', 'success');
     } catch (e) {
