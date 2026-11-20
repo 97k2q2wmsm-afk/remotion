@@ -568,6 +568,7 @@ const viewGenerator = () => {
 		<div class="grid g2">${fld('Method', `<select data-method="${i}">${opts(S.schema.visual_types, s.visual_type)}</select>`)}${fld('Provider', `<div class="small" style="padding-top:10px">${esc(g.provider ?? '—')}</div>`)}</div>
 		${s.route_reason ? `<div class="small muted">↳ ${esc(s.route_reason)}</div>` : ''}
 		${g.error ? `<div class="small" style="color:#ffb4ae">${esc(g.error)}</div>` : ''}
+		${s.asset?.kind === 'video' && s.asset.duration && s.asset.duration + 0.05 < s.duration ? `<div class="small" style="color:#f1d38a">Clip is ${fmtS(s.asset.duration)} but the scene is ${fmtS(s.duration)} — the last frame is held for the rest. Regenerate (or shorten the scene) to avoid the freeze.</div>` : ''}
 		${assetPreview(s)}${renderPreview(s)}
 		${g.prompt ? `<details><summary>Prompt & settings used</summary><div class="small mono">${esc(g.prompt)}</div><div class="small muted mono" style="margin-top:6px">neg: ${esc(g.negative_prompt)}</div><pre class="log">${esc(JSON.stringify(g.settings, null, 1))}</pre></details>` : ''}
 		${g.log?.length ? `<details><summary>Log</summary><pre class="log">${esc(g.log.join('\n'))}</pre></details>` : ''}

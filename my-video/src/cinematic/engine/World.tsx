@@ -92,10 +92,11 @@ export const World: React.FC<{
 	const cast = scene.characters.map((id) => characters.find((c) => c.id === id)).filter((c): c is Character => Boolean(c));
 	const walking = anim.has('character_walk');
 	const base = env.stage;
+	// The set's focal point is often a prop (a well, a table): stand the cast 3 m in front of it.
 	const charPos = (i: number): Vec3 => {
 		const spread = (i - (cast.length - 1) / 2) * 1.1;
-		const x = base.subject[0] + Math.cos(base.heading) * spread;
-		const z = base.subject[2] - Math.sin(base.heading) * spread;
+		const x = base.subject[0] + Math.sin(base.heading) * 3 + Math.cos(base.heading) * spread;
+		const z = base.subject[2] + Math.cos(base.heading) * 3 - Math.sin(base.heading) * spread;
 		return [x, base.groundAt(x, z), z];
 	};
 	// Close framings re-target the human subject (and follow a walking character).
@@ -107,7 +108,9 @@ export const World: React.FC<{
 			// Close-ups and over-the-shoulder shots single out the lead; other shots frame the group.
 			(() => {
 				const single = scene.camera.shot === 'close_up' || scene.camera.shot === 'over_shoulder';
-				const [ax, , az] = single ? charPos(0) : base.subject;
+				const lead = charPos(0);
+				const last = charPos(cast.length - 1);
+				const [ax, az] = single ? [lead[0], lead[2]] : [(lead[0] + last[0]) / 2, (lead[2] + last[2]) / 2];
 				return {...base, subject: [ax + Math.sin(base.heading) * walk, base.groundAt(ax, az) + 0.72 * (cast[0]?.scale ?? 1.75), az + Math.cos(base.heading) * walk] as Vec3, subjectSize: cast[0]?.scale ?? 1.75};
 			})()
 		: base;

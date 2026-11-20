@@ -262,12 +262,28 @@ on('POST', '/api/projects/:id/upload', async ({req, params, url}) => {
 	const full = projectPath(params.id, rel);
 	mkdirSync(path.dirname(full), {recursive: true});
 	await streamPipeline(req, createWriteStream(full));
-	let info;
-	try {
-		info = await probe(full);
-	} catch (e) {
-		rmSync(full, {force: true});
-		throw httpError(422, `Not a readable media file: ${e.message.slice(0, 200)}`);
+	let info = {};
+	if (kind === 'character_model') {
+		// glTF binary starts with the ASCII magic "glTF"; .gltf is JSON with an "asset" block.
+		const head = readFileSync(full).subarray(0, 4).toString('latin1');
+		const ok = ext === '.glb' ? head === 'glTF' : (() => {
+			try {
+				return Boolean(JSON.parse(readFileSync(full, 'utf8')).asset);
+			} catch {
+				return false;
+			}
+		})();
+		if (!ok) {
+			rmSync(full, {force: true});
+			throw httpError(422, 'Not a valid glTF/GLB model');
+		}
+	} else {
+		try {
+			info = await probe(full);
+		} catch (e) {
+			rmSync(full, {force: true});
+			throw httpError(422, `Not a readable media file: ${e.message.slice(0, 200)}`);
+		}
 	}
 	const sid = url.searchParams.get('scene');
 	const cid = url.searchParams.get('character');
@@ -346,6 +362,14 @@ const server = http.createServer(async (req, res) => {
 			if (!local && given !== TOKEN) return send(res, 401, {error: 'Studio token required'});
 		}
 		if (url.pathname.startsWith('/files/')) {
+			// The Remotion renderer loads textures/models from its own localhost origin, so
+			// project files need CORS — but only for local origins, never arbitrary websites.
+			const origin = req.headers.origin;
+			if (origin && /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(origin)) {
+				res.setHeader('access-control-allow-origin', origin);
+				res.setHeader('vary', 'origin');
+				if (req.method === 'OPTIONS') return send(res, 204, '', {'access-control-allow-methods': 'GET', 'access-control-allow-headers': 'range'});
+			}
 			const [, , id, ...rest] = url.pathname.split('/');
 			return sendFile(req, res, projectPath(id, decodeURIComponent(rest.join('/'))));
 		}

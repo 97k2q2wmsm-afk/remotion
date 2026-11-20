@@ -122,7 +122,7 @@ registerJobKind('generate_scene', 'remote', async ({projectId, sceneId}, ctx) =>
 		return {asset: scene.asset};
 	}
 	const stamp = Date.now();
-	await setGeneration(projectId, sceneId, {status: 'running', method, error: null, log: [], prompt, negative_prompt: negative});
+	await setGeneration(projectId, sceneId, {status: 'running', method, provider: null, settings: {}, error: null, log: [], prompt, negative_prompt: negative});
 	try {
 		let asset;
 		let meta;
