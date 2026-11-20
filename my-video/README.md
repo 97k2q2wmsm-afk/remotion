@@ -1,3 +1,34 @@
+# Cinematic AI Studio — hybrid 3D + AI video engine
+
+A free-first, local production studio built into this Remotion project. Enter a topic and
+it writes a script, builds a storyboard, chooses a production method per scene, generates
+or renders every shot, adds narration, music and sound design, edits everything on a
+timeline and exports a finished MP4 — from a desktop browser or an iPhone.
+
+```bash
+npm ci && npm run studio      # → http://127.0.0.1:4555   (details: INSTALL.md)
+```
+
+| | |
+| --- | --- |
+| **Procedural 3D engine** | Three.js / React Three Fiber / drei via `@remotion/three`: 10 environments built from real geometry (forest, mountains, city, medieval settlement, ancient Rome, modern street, futuristic city, battlefield, interior, coastline), cinematic camera rig (dolly, push-in, tracking, crane, aerial, orbit, handheld, rack focus), lighting presets incl. day→night, shadows, volumetric light shafts, fog, rain, snow, dust, smoke, fire, sparks, clouds, explosions, depth of field, bloom, grading |
+| **AI providers (optional)** | ComfyUI (image checkpoints, **Wan 2.2**, **LTX-Video**), AUTOMATIC1111/Forge, official Wan/LTX repo CLIs. Detected, never downloaded, never faked |
+| **Blender (optional)** | Headless scene builder/renderer from the same scene JSON |
+| **Scene router** | AI video → AI image + 3D camera → procedural 3D → Blender → imported asset, with the reason recorded; your overrides are respected |
+| **Characters** | One ID, look, palette, seed, reference images and 3D rig per character, reused in every scene |
+| **Editor** | Timeline with drag-to-reorder (touch), durations, transitions, text overlays, subtitles, waveforms, volumes |
+| **Audio** | Imported narration, local TTS (Piper / eSpeak NG), opt-in Google TTS, procedural score + SFX, ducking, −14 LUFS master |
+| **Rendering** | Scene-by-scene cached renders, render queue with pause / resume / retry / cancel, FFmpeg transitions + H.264 export (16:9, 9:16, 1:1 · 24/30 fps · configurable bitrate) |
+
+Docs: [INSTALL.md](INSTALL.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [docs/AI_PROVIDERS.md](docs/AI_PROVIDERS.md) · [.env.example](.env.example)
+
+In Remotion Studio (`npm run dev`) the engine appears under **Cinematic-Studio**:
+`CinematicScene` (the brief's example scene), `Cinematic-TestEnvironment`,
+`Cinematic-CameraSequence` and `Cinematic-Sample` (multi-scene). The existing channels
+below are unchanged.
+
+---
+
 # Başına Gelseydi — otomatik sinematik Shorts/Reels üretim sistemi
 
 > "Ya bu gerçekten benim başıma gelseydi?" — kodla üretilen premium 2D animasyon hikâyeleri.
