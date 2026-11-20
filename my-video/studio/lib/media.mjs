@@ -471,7 +471,7 @@ export const concatScenes = async ({clips, scenes, fps, out, signal}) => {
 
 /**
  * Final master: picture + narration (+ ducked music) + SFX bed → loudness-normalised
- * (loudnorm, then a −1.5 dBFS safety limiter: AAC encoding overshoots true peak otherwise)
+ * (loudnorm, then a −2 dBFS safety limiter: AAC encoding overshoots true peak otherwise)
  * H.264/AAC MP4 with a soft subtitle track. Returns the ffmpeg filter used (logged).
  */
 export const masterExport = async ({video, narration, music, sfx, srt, out, fps, audio, exportSettings, total, language, title, signal}) => {
@@ -510,7 +510,7 @@ export const masterExport = async ({video, narration, music, sfx, srt, out, fps,
 	}
 	const hasAudio = mixIn.length > 0;
 	if (hasAudio) {
-		filters.push(`${mixIn.join('')}amix=inputs=${mixIn.length}:normalize=0:duration=first,apad,atrim=0:${total.toFixed(3)},alimiter=limit=0.95,loudnorm=I=${audio.target_lufs}:TP=-1.5:LRA=11,alimiter=limit=0.84:level=false[aout]`);
+		filters.push(`${mixIn.join('')}amix=inputs=${mixIn.length}:normalize=0:duration=first,apad,atrim=0:${total.toFixed(3)},alimiter=limit=0.95,loudnorm=I=${audio.target_lufs}:TP=-2:LRA=11,alimiter=limit=0.79:level=false[aout]`);
 	}
 	if (srt) inputs.push('-i', srt);
 	const v = exportSettings.video_bitrate_kbps;
